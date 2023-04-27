@@ -244,3 +244,9 @@ variable "cluster_role" {
   description = "Cluster role which impacts the DB identifier"
   default     = "postgres"
 }
+
+variable "org_backup_policy" {
+  type        = string
+  description = "https://29022131.atlassian.net/wiki/spaces/ENG/pages/2464481519/SOP+Backing+Up+Resources+with+AWS+Backup"
+  default     = "Disabled"
+}

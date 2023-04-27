@@ -41,6 +41,7 @@ locals {
     Environment   = var.environment
     Description   = var.description
     ManagedBy     = "terraform"
+    OrgAWSBackup  = var.org_backup_policy 
   }
 }
 
