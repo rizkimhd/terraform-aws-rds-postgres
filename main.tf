@@ -34,10 +34,14 @@ locals {
   skip_final_snapshot     = local.is_read_replica ? true : var.skip_final_snapshot
   copy_tags_to_snapshot   = local.is_read_replica ? false : var.copy_tags_to_snapshot
 
-  is_prod_environment    = (var.environment == "prod" || var.environment == "production") ? true : false
-  org_backup_policy      = lookup(var.additional_tags, "OrgAWSBackup", var.org_backup_policy)
+  available_backup_policies = distinct(concat(["Disabled"], var.available_backup_policies))
+  is_prod_environment       = (var.environment == "prod" || var.environment == "production") ? true : false
+  org_backup_policy         = lookup(var.additional_tags, "OrgAWSBackup", var.org_backup_policy)
+  # is_policy_available       = contains(local.available_backup_policies, local.org_backup_policy) ? true : tobool("Invalid OrgAWSBackup policy, please check `available_backup_policies` for available options")
+  is_policy_available = contains(local.available_backup_policies, local.org_backup_policy) ? true : false
+
   is_valid_backup_policy = (local.is_prod_environment && local.org_backup_policy == "Disabled") ? false : true
-  # rds_backup_policy      = local.is_valid_backup_policy ? local.org_backup_policy : tobool("OrgAWSBackup cannot be \"Disabled\" for Production Environment")
+  # rds_backup_policy       = local.is_valid_backup_policy ? local.org_backup_policy : tobool("OrgAWSBackup cannot be ${local.org_backup_policy} for ${var.environment} Environment")
 
   default_tags = {
     Name          = random_id.db_identifier.hex

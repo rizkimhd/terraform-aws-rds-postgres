@@ -43,7 +43,17 @@ output "org_backup_policy" {
   value       = local.org_backup_policy
 
   precondition {
-    condition = local.is_valid_backup_policy
-    error_message = "OrgAWSBackup cannot be \"Disabled\" for ${var.environment} Environment. Please check https://29022131.atlassian.net/wiki/spaces/ENG/pages/2464481519/SOP+Backing+Up+Resources+with+AWS+Backup"
+    condition     = local.is_valid_backup_policy && contains(local.available_backup_policies, local.org_backup_policy)
+    error_message = "Invalid OrgAWSBackup ${local.org_backup_policy} for ${var.environment} environment"
+  }
+}
+
+output "org_backup_available_policies" {
+  description = "The available options for OrgAWSBackup value"
+  value       = local.available_backup_policies
+
+  precondition {
+    condition     = local.is_policy_available
+    error_message = "Invalid OrgAWSBackup value, please check `available_backup_policies"
   }
 }

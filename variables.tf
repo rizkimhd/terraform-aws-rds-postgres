@@ -245,8 +245,24 @@ variable "cluster_role" {
   default     = "postgres"
 }
 
+variable "available_backup_policies" {
+  type        = list(string)
+  description = "List of available backup policies"
+  default = [
+    "Disabled",
+    "Hourly1DDaily7DRDS",
+    "Hourly1DDaily30DRDS",
+    "Hourly",
+    "Daily",
+    "Hourly30D",
+    "Daily30D",
+    "PITR7D",
+    "PITR30D"
+  ]
+}
+
 variable "org_backup_policy" {
   type        = string
-  description = "https://29022131.atlassian.net/wiki/spaces/ENG/pages/2464481519/SOP+Backing+Up+Resources+with+AWS+Backup"
+  description = "Please check `available_backup_policies`"
   default     = "Disabled"
 }
