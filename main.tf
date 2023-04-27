@@ -37,7 +37,7 @@ locals {
   is_prod_environment    = (var.environment == "prod" || var.environment == "production") ? true : false
   org_backup_policy      = lookup(var.additional_tags, "OrgAWSBackup", var.org_backup_policy)
   is_valid_backup_policy = (local.is_prod_environment && local.org_backup_policy == "Disabled") ? false : true
-  rds_backup_policy      = local.is_valid_backup_policy ? local.org_backup_policy : tobool("OrgAWSBackup cannot be \"Disabled\" for Production Environment")
+  # rds_backup_policy      = local.is_valid_backup_policy ? local.org_backup_policy : tobool("OrgAWSBackup cannot be \"Disabled\" for Production Environment")
 
   default_tags = {
     Name          = random_id.db_identifier.hex
@@ -46,7 +46,7 @@ locals {
     Environment   = var.environment
     Description   = var.description
     ManagedBy     = "terraform"
-    OrgAWSBackup  = local.rds_backup_policy
+    OrgAWSBackup  = local.org_backup_policy
   }
 }
 

@@ -40,5 +40,10 @@ output "password" {
 
 output "org_backup_policy" {
   description = "The value of OrgAWSBackup"
-  value       = local.rds_backup_policy
+  value       = local.org_backup_policy
+
+  precondition {
+    condition = local.is_valid_backup_policy
+    error_message = "OrgAWSBackup cannot be \"Disabled\" for ${var.environment} Environment"
+  }
 }
