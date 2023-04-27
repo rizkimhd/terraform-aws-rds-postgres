@@ -43,8 +43,8 @@ output "org_backup_policy" {
   value       = local.org_backup_policy
 
   precondition {
-    condition     = local.is_valid_backup_policy && contains(local.available_backup_policies, local.org_backup_policy)
-    error_message = "Invalid OrgAWSBackup ${local.org_backup_policy} for ${var.environment} environment"
+    condition     = local.is_valid_backup_policy
+    error_message = "Invalid OrgAWSBackup \"${local.org_backup_policy}\" for ${var.environment} environment"
   }
 }
 
@@ -54,6 +54,6 @@ output "org_backup_available_policies" {
 
   precondition {
     condition     = local.is_policy_available
-    error_message = "Invalid OrgAWSBackup ${local.org_backup_policy} value, available options are ${join(", ", local.available_backup_policies)}"
+    error_message = "Invalid OrgAWSBackup \"${local.org_backup_policy}\" value, available options are ${join(", ", local.available_backup_policies)}"
   }
 }
