@@ -38,3 +38,7 @@ output "password" {
   value       = local.password
 }
 
+output "org_backup_policy" {
+  description = "The value of OrgAWSBackup"
+  value       = local.rds_backup_policy
+}
