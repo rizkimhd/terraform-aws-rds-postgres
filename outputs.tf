@@ -44,6 +44,6 @@ output "org_backup_policy" {
 
   precondition {
     condition = local.is_valid_backup_policy
-    error_message = "OrgAWSBackup cannot be \"Disabled\" for ${var.environment} Environment"
+    error_message = "OrgAWSBackup cannot be \"Disabled\" for ${var.environment} Environment. Please check https://29022131.atlassian.net/wiki/spaces/ENG/pages/2464481519/SOP+Backing+Up+Resources+with+AWS+Backup"
   }
 }
