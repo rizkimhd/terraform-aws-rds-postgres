@@ -54,6 +54,6 @@ output "org_backup_available_policies" {
 
   precondition {
     condition     = local.is_policy_available
-    error_message = "Invalid OrgAWSBackup value, please check `available_backup_policies"
+    error_message = "Invalid OrgAWSBackup ${local.org_backup_policy} value, available options are ${join(", ", local.available_backup_policies)}"
   }
 }
