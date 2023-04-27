@@ -238,3 +238,9 @@ variable "pitr_restore_time" {
   description = "The date and time to restore from"
   default     = null
 }
+
+variable "cluster_role" {
+  type        = string
+  description = "Cluster role which impacts the DB identifier"
+  default     = "postgres"
+}
